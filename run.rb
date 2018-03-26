@@ -4,9 +4,9 @@ BLENDER_BIN="/Applications/blender.app/Contents/MacOS/blender"
 pwd = `pwd`.strip
 chars = File.open('chars.txt').read.split(//).map(&:strip).reject { |c| c.empty? }
 
-chars.each do |char, i|
+chars.each_with_index do |char, i|
   char_number = char.ord.to_s(16).upcase
-  puts "\n\n\n\n#{i}/${chars.count} - processing #{char}"
+  puts "\n\n\n\n#{i+1}/#{chars.count} - processing #{char} #{char_number}"
 
   svg_font_path = "#{pwd}/svg/Ux#{char_number}_font.svg"
   svg_path = "#{pwd}/svg/Ux#{char_number}.svg"
@@ -15,7 +15,8 @@ chars.each do |char, i|
   # Put char in SVG template
   svg_template = File.open('single_char_template.svg').read
   file = File.open(svg_font_path, 'w')
-  file.write(svg_template.gsub( "\<\!\-\-CHAR\-\-\>.\<\!\-\-CHAR\-\-\>", "<!--CHAR-->{char}<!--CHAR-->"))
+  file.write(svg_template.gsub(/\<\!\-\-CHAR\-\-\>.*\<\!\-\-CHAR\-\-\>/, char))
+  #file.write("<svg><text>#{char}</text></svg>")
   file.close()
 
   # Inkscape: convert SVG to vectors
