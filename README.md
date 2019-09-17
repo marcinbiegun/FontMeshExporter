@@ -8,8 +8,8 @@ It works fine with all kinds of unholy Unicode symbols.
 
 ## Dependencies
 
-* Inkscape for creating vectors from fonts
-* Blender for creating 3d models from vectors
+* Inkscape 0.92.2 for creating vectors from fonts
+* Blender 2.8 for creating 3d models from vectors
 
 ## How to run it
 
