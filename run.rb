@@ -4,6 +4,11 @@ BLENDER_BIN="/Applications/blender.app/Contents/MacOS/blender"
 pwd = `pwd`.strip
 chars = File.open('chars.txt').read.split(//).map(&:strip).reject { |c| c.empty? }
 
+def run_cmd(cmd)
+  puts cmd
+  system cmd
+end
+
 chars.each_with_index do |char, i|
   char_number = char.ord.to_s(16).upcase
   puts "\n\n\n\n#{i+1}/#{chars.count} - processing #{char} #{char_number}"
@@ -20,8 +25,8 @@ chars.each_with_index do |char, i|
   file.close()
 
   # Inkscape: convert SVG to vectors
-  system "#{INKSCAPE_BIN} -z -D --file=#{svg_font_path} --export-plain-svg=#{svg_path} --export-text-to-path"
+  run_cmd "#{INKSCAPE_BIN} -z -D --file=#{svg_font_path} --export-plain-svg=#{svg_path} --export-text-to-path"
 
   # Blender: convert SVG to OBJ
-  system "#{BLENDER_BIN} -b -P blender_svg_to_obj.py -- --svg_import '#{svg_path}' --save '#{obj_path}'"
+  run_cmd "#{BLENDER_BIN} -b -P blender_svg_to_obj.py -- --svg_import '#{svg_path}' --save '#{obj_path}'"
 end

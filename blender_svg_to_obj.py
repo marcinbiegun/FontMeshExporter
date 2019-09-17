@@ -1,6 +1,8 @@
 import argparse
 import bpy
 
+SVG_OBJECT_NAME = "path10"
+
 def get_args():
   parser = argparse.ArgumentParser()
 
@@ -19,20 +21,21 @@ args = get_args()
 file_loc = args.svg_import
 
 # Delte default objects
-bpy.data.objects['Cube'].select = True
-bpy.data.objects['Lamp'].select = True
-bpy.data.objects['Camera'].select = True
+bpy.data.objects['Cube'].select_set(True)
+bpy.data.objects['Light'].select_set(True)
+bpy.data.objects['Camera'].select_set(True)
+
 bpy.ops.object.delete()
 
 # Import svg
 bpy.ops.import_curve.svg(filepath=file_loc)
 
 # Resize to fill [1, 1, 1]
-bpy.data.objects["Curve"].dimensions = [1, 1, 1]
+bpy.data.objects[SVG_OBJECT_NAME].dimensions = [1, 1, 1]
 
 # Select it
-bpy.data.objects["Curve"].select = True
-bpy.context.scene.objects.active= bpy.data.objects["Curve"]
+bpy.data.objects[SVG_OBJECT_NAME].select_set(True)
+bpy.context.view_layer.objects.active = bpy.data.objects[SVG_OBJECT_NAME]
 
 # Move to origin
 bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN')
