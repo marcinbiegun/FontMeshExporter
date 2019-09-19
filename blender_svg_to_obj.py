@@ -61,7 +61,7 @@ bpy.ops.mesh.tris_convert_to_quads()
 
 # Apply solidify
 bpy.ops.object.modifier_add(type='SOLIDIFY')
-bpy.context.object.modifiers["Solidify"].thickness = 0.05
+bpy.context.object.modifiers["Solidify"].thickness = 0.075
 
 # Move to origin
 bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN')
