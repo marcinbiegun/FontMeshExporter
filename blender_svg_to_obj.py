@@ -30,20 +30,42 @@ bpy.ops.object.delete()
 # Import svg
 bpy.ops.import_curve.svg(filepath=file_loc)
 
-# Resize to fill [1, 1, 1]
-bpy.data.objects[SVG_OBJECT_NAME].dimensions = [1, 1, 1]
+# Resize to fit [1, 1, 1]
+o = bpy.data.objects[SVG_OBJECT_NAME]
+x, y, z = o.dimensions
+maxSize = 1
+if x > y:
+    scale = maxSize / x
+else:
+    scale = maxSize / y
+o.dimensions = [x * scale, y * scale, z]
 
 # Select it
 bpy.data.objects[SVG_OBJECT_NAME].select_set(True)
 bpy.context.view_layer.objects.active = bpy.data.objects[SVG_OBJECT_NAME]
 
-# Move to origin
-bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN')
+# Convert to Mesh
+bpy.ops.object.convert(target='MESH')
+
+# Go to edit mode
+bpy.ops.object.mode_set(mode = 'EDIT')
+
+# Select as faces
+bpy.ops.mesh.select_all()
+
+# Beautify
+bpy.ops.mesh.beautify_fill()
+
+# Convert triangles to quads
+bpy.ops.mesh.tris_convert_to_quads()
 
 # Apply solidify
 bpy.ops.object.modifier_add(type='SOLIDIFY')
 bpy.context.object.modifiers["Solidify"].thickness = 0.05
 
+# Move to origin
+bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN')
+
 # Export OBJ
-bpy.ops.export_scene.obj(filepath=args.save)
+bpy.ops.export_scene.obj(filepath=args.save, use_materials=False)
 
