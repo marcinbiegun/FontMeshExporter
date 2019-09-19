@@ -22,7 +22,7 @@ Tested on MacOS.
 
 ## How it works
 
-1. The `single_char_template.svg` file contains a single large font character image.
+1. The `single_char_template.svg` file contains a single large font character image. You can edit this file to change the font.
 
 2. Inkscape is used to convert the font character in the `.svg` file to a vector object.
 
