@@ -1,2 +1,4 @@
 svg/**
+!svg/.keep
 obj/**
+!obj/.keep
