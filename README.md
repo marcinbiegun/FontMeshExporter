@@ -22,19 +22,18 @@ Tested on MacOS.
 
 ## How it works
 
-1. The `single_char_template.svg` file contains a single large font character
+1. The `single_char_template.svg` file contains a single large font character image.
 
-2. Inkscape is used to convert the font character in the `.svg` file to a vector object
+2. Inkscape is used to convert the font character in the `.svg` file to a vector object.
 
 ```bash
-/Applications/Inkscape.app/Contents/Resources/bin/inkscape -z -D --file=~/Projects/font-to-obj/svg/Ux5D0_font.svg --export-plain-svg=~/Projects/font-to-obj/svg/Ux5D0.svg --export-text-to-path
+/Applications/Inkscape.app/Contents/Resources/bin/inkscape -z -D --file=~./svg/Ux5D0_font.svg --export-plain-svg=./svg/Ux5D0_vector.svg --export-text-to-path
 ```
 
-3. Blender is used to convert the vector font character into an extruded
-   3D object and saves it as an `.obj` file
+3. Blender is used via `blender_svg_to_obj.py` script, to import the vector character, convert it a mesh, run some corrections and export it as an `.obj` file
 
 ```bash
-/Applications/blender.app/Contents/MacOS/blender -b -P blender_svg_to_obj.py -- --svg_import '~/Projects/font-to-obj/svg/Ux5D0.svg' --save '~/Projects/font-to-obj/obj/Ux5D0.obj'
+/Applications/blender.app/Contents/MacOS/blender -b -P blender_svg_to_obj.py -- --svg_import './svg/Ux5D0_vector.svg' --save './obj/Ux5D0.obj'
 ```
 
 4. The `run.rb` performs this operation for each character found in
