@@ -1,4 +1,4 @@
-# font-to-obj
+# FontMeshExporter
 
 A script for Batch conversion of single font characters to extruded OBJ models.
 
